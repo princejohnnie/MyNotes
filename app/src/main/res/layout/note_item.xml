@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+        <variable
+            name="note"
+            type="com.yungjohn.mynotes.database.Note" />
+
+        <variable
+            name="clickListener"
+            type="com.yungjohn.mynotes.NoteClickListener" />
+    </data>
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> clickListener.onClick(note)}">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            app:cardCornerRadius="4dp"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="16dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/note_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Title"
+                    android:textSize="24sp"
+                    android:text="@{note.noteTitle}"/>
+
+                <TextView
+                    android:id="@+id/note_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Text"
+                    android:textSize="18sp"
+                    android:text="@{note.noteText}"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+
+</layout>
