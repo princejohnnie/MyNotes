@@ -12,6 +12,7 @@ import kotlinx.coroutines.*
 /**
 Created by John on 06/07/2021
  **/
+
 class NoteListViewModel(val database: NoteDatabaseDao, application: Application) : AndroidViewModel(application){
     private val _navigateToEditNote = MutableLiveData<Long>()
    // private val _noteClicked
@@ -66,6 +67,14 @@ class NoteListViewModel(val database: NoteDatabaseDao, application: Application)
 
     fun onNavigatedToEditNote(){
         _navigateToEditNote.value = null
+    }
+
+    fun deleteAllNotes(){
+        uiScope.launch {
+            withContext(Dispatchers.IO){
+                database.deleteAllNotes()
+            }
+        }
     }
 
     override fun onCleared() {

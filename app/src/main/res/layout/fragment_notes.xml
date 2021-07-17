@@ -6,19 +6,32 @@
             type="com.yungjohn.mynotes.notelist.NoteListViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".notelist.NoteListFragment">
 
-        <!-- TODO: Update blank fragment layout -->
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_notes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="8dp"
+            android:clipToPadding="false"
             tools:listitem="@layout/note_item"
             tools:itemCount="10"/>
+
+        <TextView
+            android:id="@+id/empty_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/empty_list"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textAlignment="center"
+            android:visibility="invisible"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -26,7 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            app:srcCompat="@drawable/ic_add"/>
+            app:srcCompat="@drawable/ic_add"
+            />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

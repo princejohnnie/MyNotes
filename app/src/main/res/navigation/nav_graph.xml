@@ -21,5 +21,10 @@
         <argument
             android:name="noteId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_editNoteFragment_to_notesFragment"
+            app:destination="@id/notesFragment"
+            app:popUpTo="@id/notesFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

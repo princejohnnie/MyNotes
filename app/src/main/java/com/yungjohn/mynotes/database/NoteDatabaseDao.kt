@@ -1,15 +1,18 @@
 package com.yungjohn.mynotes.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface NoteDatabaseDao {
     @Insert
     fun insert(note: Note)
+
+    @Update
+    fun update(note: Note)
+
+    @Query("delete from note_table")
+    fun deleteAllNotes()
 
     @Query("select * from note_table where noteId = :id")
     fun getNote(id: Long): LiveData<Note>

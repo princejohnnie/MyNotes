@@ -1,16 +1,15 @@
 package com.yungjohn.mynotes.notelist
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yungjohn.mynotes.NoteClickListener
 import com.yungjohn.mynotes.NoteListAdapter
@@ -26,9 +25,12 @@ import com.yungjohn.mynotes.databinding.FragmentNotesBinding
 
 class NoteListFragment : Fragment() {
     private val NEW_NOTE_ID: Long = -1L
+    private lateinit var viewModel: NoteListViewModel
+    private lateinit var binding: FragmentNotesBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
 
@@ -37,17 +39,19 @@ class NoteListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment using DataBinding
-        val binding: FragmentNotesBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_notes, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_notes, container, false)
 
         val application = requireNotNull(this.activity).application
         val dataSource = NoteDatabase.getInstance(application).noteDatabaseDao
         val viewModelFactory = NoteListViewModelFactory(dataSource, application)
 
-        val viewModel = ViewModelProvider(this, viewModelFactory).get(NoteListViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(NoteListViewModel::class.java)
         binding.lifecycleOwner = this
 
         binding.notesViewModel = viewModel
         binding.recyclerNotes.layoutManager = LinearLayoutManager(activity)
+
+        setHasOptionsMenu(true)
 
         val adapter = NoteListAdapter(NoteClickListener { noteId ->
             Toast.makeText(context, "Note clicked with Id $noteId", Toast.LENGTH_SHORT).show()
@@ -58,7 +62,7 @@ class NoteListFragment : Fragment() {
 
         viewModel.navigateToEditNote.observe(viewLifecycleOwner, { noteId ->
             noteId?.let {
-                this.findNavController().navigate(NoteListFragmentDirections.actionNotesFragmentToEditNoteFragment(noteId))
+                findNavController().navigate(NoteListFragmentDirections.actionNotesFragmentToEditNoteFragment(noteId))
                 viewModel.onNavigatedToEditNote()
             }
         })
@@ -66,14 +70,32 @@ class NoteListFragment : Fragment() {
         viewModel.notes.observe(viewLifecycleOwner, {
             if(it.isNotEmpty()){
                 adapter.submitList(it)
+            }else{
+                binding.emptyText.visibility = View.VISIBLE
             }
         })
 
         binding.fab.setOnClickListener {
             it.findNavController().navigate(NoteListFragmentDirections.actionNotesFragmentToEditNoteFragment(NEW_NOTE_ID))
+            viewModel.onNavigatedToEditNote()
         }
 
         return binding.root
     }
 
+    private fun deleteAllNotes() {
+        viewModel.deleteAllNotes()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.action_delete_all -> deleteAllNotes()
+
+        }
+        return true
+    }
 }

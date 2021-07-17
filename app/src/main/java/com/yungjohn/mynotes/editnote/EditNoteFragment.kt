@@ -6,17 +6,20 @@ import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.room.Database
+import androidx.navigation.fragment.findNavController
 import com.yungjohn.mynotes.R
 import com.yungjohn.mynotes.database.Note
 import com.yungjohn.mynotes.database.NoteDatabase
 import com.yungjohn.mynotes.databinding.FragmentEditNoteBinding
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -27,10 +30,12 @@ class EditNoteFragment : Fragment() {
     private lateinit var application: Application
     private lateinit var viewModel: EditNoteViewModel
     private lateinit var binding: FragmentEditNoteBinding
+    private lateinit var arguments: EditNoteFragmentArgs
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+       // requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){}
     }
 
     override fun onCreateView(
@@ -42,7 +47,7 @@ class EditNoteFragment : Fragment() {
 
         application = requireNotNull(this.activity).application
         val dataSource = NoteDatabase.getInstance(application).noteDatabaseDao
-        val arguments = EditNoteFragmentArgs.fromBundle(requireArguments())
+        arguments = EditNoteFragmentArgs.fromBundle(requireArguments())
         val viewModelFactory = EditNoteViewModelFactory(arguments.noteId, dataSource)
         viewModel = ViewModelProvider(this, viewModelFactory).get(EditNoteViewModel::class.java)
 
@@ -51,7 +56,9 @@ class EditNoteFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+       // (activity as MainActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
+       // (activity as MainActivity).supportActionBar?.setHomeButtonEnabled(true)
+
         return binding.root
     }
 
@@ -61,22 +68,43 @@ class EditNoteFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_save_note){
-            if (binding.editNoteText.text.isNotEmpty() && binding.editNoteTitle.text.isNotEmpty()){
-                saveNewNote()
-                Toast.makeText(activity, "Note Saved", Toast.LENGTH_SHORT).show()
-                // Hide the keyboard.
-                val imm = (activity as AppCompatActivity).getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view?.windowToken, 0)
+            if (binding.editNoteText.text.isEmpty() || binding.editNoteTitle.text.isEmpty()){
+                Toast.makeText(activity, "Cannot create empty note", Toast.LENGTH_SHORT).show()
+                this.findNavController().navigate(EditNoteFragmentDirections.actionEditNoteFragmentToNotesFragment())
+                return true
             }
+            viewModel.isNewNote.observe(viewLifecycleOwner, { isNewNote ->
+                if (isNewNote){
+                    saveNewNote()
+                }else{
+                    updateNote()
+                }
+            })
+            // Hide the keyboard.
+            val imm = (activity as AppCompatActivity).getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view?.windowToken, 0)
+            this.findNavController().navigate(EditNoteFragmentDirections.actionEditNoteFragmentToNotesFragment())
         }
         return true
+    }
+
+    private fun updateNote() {
+        val noteTitle = binding.editNoteTitle.text.toString()
+        val noteText = binding.editNoteText.text.toString()
+        val note = Note(noteTitle, noteText, arguments.noteId)
+
+        viewModel.updateNote(note)
+        Toast.makeText(activity, "Note Updated", Toast.LENGTH_SHORT).show()
     }
 
     private fun saveNewNote() {
         val noteTitle = binding.editNoteTitle.text.toString()
         val noteText = binding.editNoteText.text.toString()
+
         val note = Note(noteTitle, noteText)
 
-        viewModel.createNewNote(note)
+        viewModel.createNote(note)
+        Toast.makeText(activity, "Note Saved", Toast.LENGTH_SHORT).show()
+
     }
 }
