@@ -24,6 +24,11 @@ class NoteListAdapter(private val clickListener: NoteClickListener): ListAdapter
         holder.bind(clickListener, item)
     }
 
+    /*fun submit(notes: List<Note>){
+        submitList(notes)
+        notifyDataSetChanged()
+    }*/
+
     class ViewHolder(private val binding: NoteItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(clickListener: NoteClickListener, item: Note){
             binding.note = item

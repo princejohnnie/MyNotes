@@ -2,9 +2,9 @@
 <resources>
     <color name="primary_white">#eceff1</color>
     <color name="primary_dark">#babdbe</color>
-    <color name="night_primary">#263238</color>
-    <color name="night_primary_light">#4f5b62</color>
-    <color name="night_primary_dark">#000a12</color>
+    <color name="night_primary">#37474f</color>
+    <color name="night_primary_light">#62727b</color>
+    <color name="night_primary_dark">#102027</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>

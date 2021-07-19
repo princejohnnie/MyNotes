@@ -50,6 +50,7 @@ class NoteListFragment : Fragment() {
 
         binding.notesViewModel = viewModel
         binding.recyclerNotes.layoutManager = LinearLayoutManager(activity)
+        binding.recyclerNotes.setHasFixedSize(true)
 
         setHasOptionsMenu(true)
 
@@ -62,7 +63,7 @@ class NoteListFragment : Fragment() {
 
         viewModel.navigateToEditNote.observe(viewLifecycleOwner, { noteId ->
             noteId?.let {
-                findNavController().navigate(NoteListFragmentDirections.actionNotesFragmentToEditNoteFragment(noteId))
+                this.findNavController().navigate(NoteListFragmentDirections.actionNotesFragmentToEditNoteFragment(noteId))
                 viewModel.onNavigatedToEditNote()
             }
         })
@@ -70,6 +71,7 @@ class NoteListFragment : Fragment() {
         viewModel.notes.observe(viewLifecycleOwner, {
             if(it.isNotEmpty()){
                 adapter.submitList(it)
+
             }else{
                 binding.emptyText.visibility = View.VISIBLE
             }

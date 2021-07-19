@@ -1,18 +1,13 @@
 package com.yungjohn.mynotes.editnote
 
-import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.OnBackPressedDispatcher
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.yungjohn.mynotes.R
@@ -27,10 +22,10 @@ import java.util.*
  * create an instance of this fragment.
  */
 class EditNoteFragment : Fragment() {
-    private lateinit var application: Application
     private lateinit var viewModel: EditNoteViewModel
     private lateinit var binding: FragmentEditNoteBinding
     private lateinit var arguments: EditNoteFragmentArgs
+    private var focusChangedListener: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +40,7 @@ class EditNoteFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit_note, container, false)
 
-        application = requireNotNull(this.activity).application
+        val application = requireNotNull(this.activity).application
         val dataSource = NoteDatabase.getInstance(application).noteDatabaseDao
         arguments = EditNoteFragmentArgs.fromBundle(requireArguments())
         val viewModelFactory = EditNoteViewModelFactory(arguments.noteId, dataSource)
@@ -54,12 +49,30 @@ class EditNoteFragment : Fragment() {
         binding.editNoteViewModel = viewModel
         binding.lifecycleOwner = this
 
+        binding.editNoteText.onFocusChangeListener = View.OnFocusChangeListener { editText, focusChanged ->
+            focusChangedListener = focusChanged
+           // Log.d("EditNoteFragment: ", "Focus changed $focusChanged")
+        }
+
+/*
+        binding.editNoteText.onTouchEvent(MotionEvent.ACTION_DOWN as MotionEvent).apply {
+            this.let {
+                binding.editNoteText.isFocusable = true
+            }
+        }
+*/
         setHasOptionsMenu(true)
 
-       // (activity as MainActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
-       // (activity as MainActivity).supportActionBar?.setHomeButtonEnabled(true)
-
         return binding.root
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        val item = menu.findItem(R.id.action_save_note)
+        val itemDelete = menu.findItem(R.id.action_delete_note)
+       // item.isVisible = binding.editNoteText.hasFocus()
+        val hasFocus = binding.editNoteText.isFocused
+       // Log.d("EditNoteFragment: ", "Does EditText have focus? $hasFocus")
+        super.onPrepareOptionsMenu(menu)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -80,12 +93,31 @@ class EditNoteFragment : Fragment() {
                     updateNote()
                 }
             })
+
             // Hide the keyboard.
-            val imm = (activity as AppCompatActivity).getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(view?.windowToken, 0)
+            hideKeyboard()
+
+        }else if (item.itemId == R.id.action_delete_note){
+             viewModel.initializeNote()
+            val note = viewModel.note.value
+            if (note != null) {
+                deleteNote(note)
+            }
             this.findNavController().navigate(EditNoteFragmentDirections.actionEditNoteFragmentToNotesFragment())
         }
         return true
+    }
+
+    private fun deleteNote(note: Note) {
+        viewModel.deleteNote(note)
+    }
+
+    private fun hideKeyboard() {
+        val imm = (activity as AppCompatActivity).getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
+      //  binding.editNoteText.isFocusable = false
+        val hasFocus = binding.editNoteText.isFocused
+       // Log.d("EditNoteFragment: ", "Does EditText have focus? $hasFocus")
     }
 
     private fun updateNote() {

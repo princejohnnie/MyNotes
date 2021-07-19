@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.yungjohn.mynotes.database.Note
 import com.yungjohn.mynotes.database.NoteDatabaseDao
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.Flow
 
 /**
 Created by John on 06/07/2021
@@ -41,22 +42,6 @@ class NoteListViewModel(val database: NoteDatabaseDao, application: Application)
             database.insert(note)
         }
     }
-
-/*    private fun initializeNotes(){
-         _notes.value = mutableListOf(
-            Note(1L, "First Title", "First Text"),
-            Note(2L, "Second Title", "Second Text"),
-            Note(3L, "Third Title", "Third Text"),
-             Note(4L, "Fourth Title", "Fourth Text"),
-             Note(5L, "Fifth Title", "Fifth Text"),
-             Note(6L, "Sixth Title", "Sixth Text"),
-             Note(7L, "Seventh Title", "Seventh Text"),
-             Note(8L, "Eighth Title", "Eighth Text"),
-             Note(9L, "Ninth Title", "Ninth Text"),
-             Note(10L, "Tenth Title", "Tenth Text")
-             
-        )
-    }*/
 
     val navigateToEditNote: LiveData<Long>
         get() = _navigateToEditNote

@@ -1,11 +1,9 @@
 package com.yungjohn.mynotes.editnote
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.yungjohn.mynotes.R
 import com.yungjohn.mynotes.database.Note
 import com.yungjohn.mynotes.database.NoteDatabaseDao
 import kotlinx.coroutines.*
@@ -13,23 +11,26 @@ import kotlinx.coroutines.*
 /**
 Created by John on 06/07/2021
  **/
-class EditNoteViewModel(noteId : Long, dataSource: NoteDatabaseDao): ViewModel() {
+class EditNoteViewModel(val noteId : Long, dataSource: NoteDatabaseDao): ViewModel() {
     val database = dataSource
 
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private val currentNote = MediatorLiveData<Note>()
+    private val _currentNote = MediatorLiveData<Note>()
+    fun getNote() = _currentNote
 
-    fun getNote() = currentNote
+    private val _note = MutableLiveData<Note>()
+    val note: LiveData<Note>
+        get() = _note
 
     private val _isNewNote = MutableLiveData<Boolean>()
     val isNewNote: LiveData<Boolean> get() = _isNewNote
 
-
     init {
+        initializeNote()
         if(noteId != -1L){
-            currentNote.addSource(database.getNote(noteId), currentNote::setValue)
+            _currentNote.addSource(database.getNote(noteId), _currentNote::setValue)
             _isNewNote.value = false
         }else{
            _isNewNote.value = true
@@ -44,6 +45,19 @@ class EditNoteViewModel(noteId : Long, dataSource: NoteDatabaseDao): ViewModel()
             }
         }
     }*/
+
+    fun initializeNote(){
+        uiScope.launch {
+            _note.value = getNoteWithId(noteId)
+        }
+    }
+
+    private suspend fun getNoteWithId(id: Long): Note {
+        return withContext(Dispatchers.IO){
+            val note = database.getNoteWithId(id)
+            note
+        }
+    }
 
      fun createNote(note: Note) {
         uiScope.launch {
@@ -68,6 +82,19 @@ class EditNoteViewModel(noteId : Long, dataSource: NoteDatabaseDao): ViewModel()
             database.update(note)
         }
     }
+
+    fun deleteNote(note: Note) {
+        uiScope.launch {
+            delete(note)
+        }
+    }
+
+    private suspend fun delete(note: Note){
+        withContext(Dispatchers.IO){
+            database.delete(note)
+        }
+    }
+
 
     override fun onCleared() {
         viewModelJob.cancel()
