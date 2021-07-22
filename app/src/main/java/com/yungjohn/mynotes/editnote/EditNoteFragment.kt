@@ -48,7 +48,6 @@ class EditNoteFragment : Fragment() {
         binding.editNoteViewModel = viewModel
         binding.lifecycleOwner = this
 
-        // (activity)?.setActionBar()
 
         binding.editNoteText.onFocusChangeListener = View.OnFocusChangeListener { editText, focusChanged ->
             focusChangedListener = focusChanged
@@ -103,8 +102,8 @@ class EditNoteFragment : Fragment() {
             if (note != null) {
                 deleteNote(note)
             }
-            this.findNavController().navigate(EditNoteFragmentDirections.actionEditNoteFragmentToNotesFragment())
         }
+        this.findNavController().navigate(EditNoteFragmentDirections.actionEditNoteFragmentToNotesFragment())
         return true
     }
 

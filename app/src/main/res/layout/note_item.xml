@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="note"
             type="com.yungjohn.mynotes.database.Note" />
@@ -12,48 +15,47 @@
             type="com.yungjohn.mynotes.NoteClickListener" />
     </data>
 
-    <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        app:cardCornerRadius="8dp"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="8dp"
         android:onClick="@{() -> clickListener.onClick(note)}">
 
-        <androidx.cardview.widget.CardView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:elevation="4dp"
-            app:cardCornerRadius="8dp"
-            app:cardUseCompatPadding="true"
-            app:contentPadding="8dp"
-            >
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/note_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:text="@{note.noteTitle}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="24sp"
+                tools:text="Title" />
 
-                <TextView
-                    android:id="@+id/note_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+            <TextView
+                android:id="@+id/note_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text="@{note.noteText}"
+                app:layout_constraintStart_toStartOf="@id/note_title"
+                app:layout_constraintEnd_toEndOf="@id/note_title"
+                app:layout_constraintTop_toBottomOf="@id/note_title"
+                android:textSize="18sp"
+                tools:text="Text" />
 
-                    tools:text="Title"
-                    android:textSize="24sp"
-                    android:text="@{note.noteTitle}"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
-                <TextView
-                    android:id="@+id/note_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    tools:text="Text"
-                    android:textSize="18sp"
-                    android:ellipsize="end"
-                    android:text="@{note.noteText}"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </FrameLayout>
 
 </layout>

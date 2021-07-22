@@ -27,6 +27,7 @@ class EditNoteViewModel(val noteId : Long, dataSource: NoteDatabaseDao): ViewMod
     private val _isNewNote = MutableLiveData<Boolean>()
     val isNewNote: LiveData<Boolean> get() = _isNewNote
 
+
     init {
         initializeNote()
         if(noteId != -1L){
