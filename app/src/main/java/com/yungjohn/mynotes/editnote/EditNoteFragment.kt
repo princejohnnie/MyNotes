@@ -30,7 +30,6 @@ class EditNoteFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-       // requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){}
     }
 
     override fun onCreateView(
@@ -49,11 +48,12 @@ class EditNoteFragment : Fragment() {
         binding.editNoteViewModel = viewModel
         binding.lifecycleOwner = this
 
+        // (activity)?.setActionBar()
+
         binding.editNoteText.onFocusChangeListener = View.OnFocusChangeListener { editText, focusChanged ->
             focusChangedListener = focusChanged
            // Log.d("EditNoteFragment: ", "Focus changed $focusChanged")
         }
-
 /*
         binding.editNoteText.onTouchEvent(MotionEvent.ACTION_DOWN as MotionEvent).apply {
             this.let {

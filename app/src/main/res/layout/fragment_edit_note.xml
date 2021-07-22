@@ -3,8 +3,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    
+
     <data>
+
         <variable
             name="editNoteViewModel"
             type="com.yungjohn.mynotes.editnote.EditNoteViewModel" />
@@ -14,30 +15,28 @@
             type="com.yungjohn.mynotes.database.Note" />
     </data>
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".editnote.EditNoteFragment"
-        android:padding="8dp">
-
+        android:layout_height="match_parent">
 
         <EditText
             android:id="@+id/edit_note_title"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="60dp"
             android:background="#00000000"
             android:hint="@string/hint_title"
             android:inputType="textCapSentences"
             android:text="@{editNoteViewModel.note.noteTitle}"
-            android:textStyle="bold"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/right_margin"
+            app:layout_constraintStart_toStartOf="@id/left_margin"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/edit_note_text"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="#00000000"
             android:ellipsize="end"
@@ -47,10 +46,27 @@
             android:text="@{editNoteViewModel.note.noteText}"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/right_margin"
+            app:layout_constraintStart_toStartOf="@id/left_margin"
             app:layout_constraintTop_toBottomOf="@id/edit_note_title"
             app:layout_constraintVertical_bias="0.0" />
 
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.04" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/right_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.96" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </layout>

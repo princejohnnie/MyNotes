@@ -17,12 +17,12 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="100dp"
         android:onClick="@{() -> clickListener.onClick(note)}">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:elevation="4dp"
             app:cardCornerRadius="8dp"
             app:cardUseCompatPadding="true"
@@ -38,7 +38,7 @@
                     android:id="@+id/note_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/night_primary_dark"
+
                     tools:text="Title"
                     android:textSize="24sp"
                     android:text="@{note.noteTitle}"/>
@@ -47,7 +47,7 @@
                     android:id="@+id/note_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/night_primary_light"
+
                     tools:text="Text"
                     android:textSize="18sp"
                     android:ellipsize="end"

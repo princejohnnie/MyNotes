@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/notesFragment"
         android:name="com.yungjohn.mynotes.notelist.NoteListFragment"
-        android:label="MyNotes" >
+        >
         <action
             android:id="@+id/action_notesFragment_to_editNoteFragment"
             app:destination="@id/editNoteFragment" />
@@ -16,8 +16,7 @@
     <fragment
         android:id="@+id/editNoteFragment"
         android:name="com.yungjohn.mynotes.editnote.EditNoteFragment"
-        android:label="Note"
-        tools:layout="@layout/fragment_edit_note" >
+        android:label="Note">
         <argument
             android:name="noteId"
             app:argType="long" />

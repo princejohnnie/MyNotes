@@ -18,7 +18,7 @@ class EditNoteViewModel(val noteId : Long, dataSource: NoteDatabaseDao): ViewMod
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private val _currentNote = MediatorLiveData<Note>()
-    fun getNote() = _currentNote
+    fun getCurrentNote() = _currentNote
 
     private val _note = MutableLiveData<Note>()
     val note: LiveData<Note>
