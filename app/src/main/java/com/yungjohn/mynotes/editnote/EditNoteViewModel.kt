@@ -31,7 +31,7 @@ class EditNoteViewModel(val noteId : Long, val database: NoteDatabaseDao): ViewM
         }
     }
 
-    fun initializeNote(){
+    private fun initializeNote(){
         viewModelScope.launch {
             _note.value = getNoteWithId(noteId)
         }

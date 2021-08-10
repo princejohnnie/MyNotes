@@ -29,8 +29,9 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class EditNoteFragment : Fragment() {
 
+    @Inject lateinit var dataSource: NoteDatabaseDao
+
     private lateinit var viewModel: EditNoteViewModel
-    private lateinit var dataSource: NoteDatabaseDao
     private lateinit var binding: FragmentEditNoteBinding
     private lateinit var arguments: EditNoteFragmentArgs
 
@@ -46,8 +47,8 @@ class EditNoteFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit_note, container, false)
 
-        val application = requireNotNull(this.activity).application
-        val dataSource = NoteDatabase.getInstance(application).noteDatabaseDao
+        //val application = requireNotNull(this.activity).application
+       // val dataSource = NoteDatabase.getInstance(application).noteDatabaseDao
         arguments = EditNoteFragmentArgs.fromBundle(requireArguments())
         val viewModelFactory = EditNoteViewModelFactory(arguments.noteId, dataSource)
         viewModel = ViewModelProvider(this, viewModelFactory).get(EditNoteViewModel::class.java)
@@ -97,13 +98,12 @@ class EditNoteFragment : Fragment() {
             return true
 
         }else if (item.itemId == R.id.action_delete_note){
-             viewModel.initializeNote()
             val note = viewModel.note.value
             if (note != null) {
                 deleteNote(note)
                 navigateBack()
             }
-            return true
+           // return true
         }
         return true
     }
