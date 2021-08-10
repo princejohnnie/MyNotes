@@ -2,8 +2,10 @@ package com.yungjohn.mynotes.editnote
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
@@ -13,19 +15,24 @@ import androidx.navigation.fragment.findNavController
 import com.yungjohn.mynotes.R
 import com.yungjohn.mynotes.database.Note
 import com.yungjohn.mynotes.database.NoteDatabase
+import com.yungjohn.mynotes.database.NoteDatabaseDao
 import com.yungjohn.mynotes.databinding.FragmentEditNoteBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
  * Use the [EditNoteFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 class EditNoteFragment : Fragment() {
+
     private lateinit var viewModel: EditNoteViewModel
+    private lateinit var dataSource: NoteDatabaseDao
     private lateinit var binding: FragmentEditNoteBinding
     private lateinit var arguments: EditNoteFragmentArgs
-    private var focusChangedListener: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,30 +55,21 @@ class EditNoteFragment : Fragment() {
         binding.editNoteViewModel = viewModel
         binding.lifecycleOwner = this
 
+        (activity)?.title = "Note"
 
-        binding.editNoteText.onFocusChangeListener = View.OnFocusChangeListener { editText, focusChanged ->
-            focusChangedListener = focusChanged
-           // Log.d("EditNoteFragment: ", "Focus changed $focusChanged")
+        binding.editNoteTitle.setOnClickListener {
+            // Log.d("EditNoteFragment: ", "onClick called")
+            binding.editNoteTitle.isCursorVisible = true
         }
-/*
-        binding.editNoteText.onTouchEvent(MotionEvent.ACTION_DOWN as MotionEvent).apply {
-            this.let {
-                binding.editNoteText.isFocusable = true
-            }
+
+        binding.editNoteText.setOnClickListener {
+           // Log.d("EditNoteFragment: ", "onClick called")
+            binding.editNoteText.isCursorVisible = true
         }
-*/
+
         setHasOptionsMenu(true)
 
         return binding.root
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        val item = menu.findItem(R.id.action_save_note)
-        val itemDelete = menu.findItem(R.id.action_delete_note)
-       // item.isVisible = binding.editNoteText.hasFocus()
-        val hasFocus = binding.editNoteText.isFocused
-       // Log.d("EditNoteFragment: ", "Does EditText have focus? $hasFocus")
-        super.onPrepareOptionsMenu(menu)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -82,7 +80,7 @@ class EditNoteFragment : Fragment() {
         if (item.itemId == R.id.action_save_note){
             if (binding.editNoteText.text.isEmpty() || binding.editNoteTitle.text.isEmpty()){
                 Toast.makeText(activity, "Cannot create empty note", Toast.LENGTH_SHORT).show()
-                this.findNavController().navigate(EditNoteFragmentDirections.actionEditNoteFragmentToNotesFragment())
+                navigateBack()
                 return true
             }
             viewModel.isNewNote.observe(viewLifecycleOwner, { isNewNote ->
@@ -92,19 +90,26 @@ class EditNoteFragment : Fragment() {
                     updateNote()
                 }
             })
-
             // Hide the keyboard.
             hideKeyboard()
+
+           // navigateBack()
+            return true
 
         }else if (item.itemId == R.id.action_delete_note){
              viewModel.initializeNote()
             val note = viewModel.note.value
             if (note != null) {
                 deleteNote(note)
+                navigateBack()
             }
+            return true
         }
-        this.findNavController().navigate(EditNoteFragmentDirections.actionEditNoteFragmentToNotesFragment())
         return true
+    }
+
+    private fun navigateBack(){
+        this.findNavController().navigate(EditNoteFragmentDirections.actionEditNoteFragmentToNotesFragment())
     }
 
     private fun deleteNote(note: Note) {
@@ -114,9 +119,8 @@ class EditNoteFragment : Fragment() {
     private fun hideKeyboard() {
         val imm = (activity as AppCompatActivity).getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view?.windowToken, 0)
-      //  binding.editNoteText.isFocusable = false
-        val hasFocus = binding.editNoteText.isFocused
-       // Log.d("EditNoteFragment: ", "Does EditText have focus? $hasFocus")
+        binding.editNoteText.isCursorVisible = false
+        binding.editNoteTitle.isCursorVisible = false
     }
 
     private fun updateNote() {

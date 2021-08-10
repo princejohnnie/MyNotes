@@ -1,6 +1,7 @@
 package com.yungjohn.mynotes.database
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 

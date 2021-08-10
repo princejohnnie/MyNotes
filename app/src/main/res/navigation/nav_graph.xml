@@ -16,7 +16,7 @@
     <fragment
         android:id="@+id/editNoteFragment"
         android:name="com.yungjohn.mynotes.editnote.EditNoteFragment"
-        android:label="Note">
+        android:label="Notes">
         <argument
             android:name="noteId"
             app:argType="long" />

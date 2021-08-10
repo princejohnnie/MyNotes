@@ -6,13 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yungjohn.mynotes.database.NoteDatabaseDao
 import com.yungjohn.mynotes.editnote.EditNoteViewModel
+import javax.inject.Inject
 
-class NoteListViewModelFactory(private val dataSource: NoteDatabaseDao, val application: Application): ViewModelProvider.Factory {
+class NoteListViewModelFactory @Inject constructor(private val dataSource: NoteDatabaseDao): ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(NoteListViewModel::class.java)) {
-            return NoteListViewModel(dataSource, application) as T
+            return NoteListViewModel(dataSource) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
