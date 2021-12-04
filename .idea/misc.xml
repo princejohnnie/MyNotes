@@ -3,9 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/John Uzodinma/StudioProjects/MyNotes/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/John Uzodinma/StudioProjects/MyNotes/app/src/main/res/layout/activity_main.xml" value="0.15" />
         <entry key="..\:/Users/John Uzodinma/StudioProjects/MyNotes/app/src/main/res/layout/fragment_edit_note.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/John Uzodinma/StudioProjects/MyNotes/app/src/main/res/layout/fragment_notes.xml" value="0.1" />
+        <entry key="..\:/Users/John Uzodinma/StudioProjects/MyNotes/app/src/main/res/layout/note_item.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

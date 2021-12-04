@@ -46,11 +46,6 @@ class NoteListFragment : Fragment() {
         // Inflate the layout for this fragment using DataBinding
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_notes, container, false)
 
-        //val application = requireNotNull(this.activity).application
-       // val dataSource = NoteDatabase.getInstance(application).noteDatabaseDao
-       // val viewModelFactory = NoteListViewModelFactory(dataSource)
-        //viewModel = ViewModelProvider(this, viewModelFactory).get(NoteListViewModel::class.java)
-
         binding.lifecycleOwner = this
 
         binding.notesViewModel = viewModel
@@ -75,18 +70,16 @@ class NoteListFragment : Fragment() {
         })
 
         viewModel.notes.observe(viewLifecycleOwner, {
-            if(it.isNotEmpty()){
-                adapter.submitList(it)
-            }else{
-                binding.emptyText.visibility = View.VISIBLE
-            }
+           if (it.isNotEmpty()){
+               binding.emptyText.visibility = View.INVISIBLE
+               adapter.submitList(it)
+           }
         })
 
         binding.fab.setOnClickListener {
             it.findNavController().navigate(NoteListFragmentDirections.actionNotesFragmentToEditNoteFragment(NEW_NOTE_ID))
             viewModel.onNavigatedToEditNote()
         }
-
         return binding.root
     }
 
@@ -96,9 +89,10 @@ class NoteListFragment : Fragment() {
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         val item = menu.findItem(R.id.action_delete_all)
-        if (viewModel.notes.value.isNullOrEmpty()){
-            item.isEnabled = false
-        }
+        viewModel.notes.observe(viewLifecycleOwner, {
+            if (it.isEmpty())
+                item.isEnabled = false
+        })
         super.onPrepareOptionsMenu(menu)
     }
 

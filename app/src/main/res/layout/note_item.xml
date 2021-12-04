@@ -13,6 +13,7 @@
         <variable
             name="clickListener"
             type="com.yungjohn.mynotes.NoteClickListener" />
+
     </data>
 
 
@@ -20,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="4dp"
-        app:cardCornerRadius="8dp"
+        app:cardCornerRadius="4dp"
         app:cardUseCompatPadding="true"
         app:contentPadding="8dp"
         android:onClick="@{() -> clickListener.onClick(note)}">
@@ -38,7 +39,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 tools:text="Title" />
 
             <TextView
@@ -46,12 +47,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
-                android:ellipsize="end"
                 android:text="@{note.noteText}"
                 app:layout_constraintStart_toStartOf="@id/note_title"
                 app:layout_constraintEnd_toEndOf="@id/note_title"
                 app:layout_constraintTop_toBottomOf="@id/note_title"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 tools:text="Text" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase
 Created by John on 09/07/2021
  **/
 
-@Database(entities = [Note::class], version = 1, exportSchema = false)
+@Database(entities = [Note::class], version = 3, exportSchema = false)
 abstract class NoteDatabase: RoomDatabase() {
     abstract val noteDatabaseDao : NoteDatabaseDao
 

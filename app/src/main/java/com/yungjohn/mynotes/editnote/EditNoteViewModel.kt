@@ -17,6 +17,8 @@ class EditNoteViewModel(val noteId : Long, val database: NoteDatabaseDao): ViewM
     val note: LiveData<Note>
         get() = _note
 
+    //val timestamp = _note.value?.timestamp
+
     private val _isNewNote = MutableLiveData<Boolean>()
     val isNewNote: LiveData<Boolean> get() = _isNewNote
 

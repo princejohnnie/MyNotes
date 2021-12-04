@@ -13,5 +13,10 @@ data class Note(
     val noteText: String,
 
     @PrimaryKey(autoGenerate = true)
-    var noteId: Long = 0
+    var noteId: Long = 0,
+
 )
+{
+    @ColumnInfo(name = "timestamp")
+    var timestamp: Long = System.currentTimeMillis()
+}
