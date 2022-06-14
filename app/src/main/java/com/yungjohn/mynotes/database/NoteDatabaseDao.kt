@@ -20,7 +20,7 @@ interface NoteDatabaseDao {
     fun deleteAllNotes()
 
     @Query("select * from note_table where noteId = :id")
-    fun getNote(id: Long): LiveData<Note>
+    fun getCurrentNote(id: Long): LiveData<Note>
 
     @Query("select * from note_table where noteId = :id")
     fun getNoteWithId(id: Long): Note

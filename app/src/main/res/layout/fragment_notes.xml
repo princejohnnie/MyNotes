@@ -24,7 +24,7 @@
             tools:itemCount="10"/>
 
         <TextView
-            android:id="@+id/empty_text"
+            android:id="@+id/empty_list_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -33,7 +33,7 @@
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             android:textAlignment="center"
-            android:visibility="visible"
+            android:visibility="invisible"
             />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -43,6 +43,7 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:elevation="8dp"
+            android:contentDescription="@string/content_desc_add_new_note"
             app:srcCompat="@drawable/ic_add"
             />
 

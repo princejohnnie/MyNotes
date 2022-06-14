@@ -9,23 +9,24 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 /**
-Created by John on 06/07/2021
- **/
-
+ * ViewModel class for the [NoteListFragment]
+ * Contains relevant methods and properties used to manipulate controls in the [NoteListFragment]
+ */
 class NoteListViewModel @Inject constructor(val database: NoteDatabaseDao) : ViewModel(){
-    private val _navigateToEditNote = MutableLiveData<Long>()
 
     private var _notes = database.getAllNotes()
 
     val notes: LiveData<List<Note>>
         get() = _notes
 
-    init {
 
-    }
-
+    private val _navigateToEditNote = MutableLiveData<Long>()
     val navigateToEditNote: LiveData<Long>
         get() = _navigateToEditNote
+
+    init {
+       // getAllNotes()
+    }
 
     fun onNoteClicked(id: Long){
         _navigateToEditNote.value = id
@@ -35,10 +36,19 @@ class NoteListViewModel @Inject constructor(val database: NoteDatabaseDao) : Vie
         _navigateToEditNote.value = null
     }
 
+    /*private fun getAllNotes(){
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                _notes.postValue(database.getAllNotes())
+            }
+        }
+    }*/
+
     fun deleteAllNotes(){
         viewModelScope.launch {
             withContext(Dispatchers.IO){
                 database.deleteAllNotes()
+
             }
         }
     }

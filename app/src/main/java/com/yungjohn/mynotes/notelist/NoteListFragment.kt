@@ -1,6 +1,7 @@
 package com.yungjohn.mynotes.notelist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
@@ -21,9 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 /**
- * A simple [Fragment] subclass.
- * Use the [NoteListFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * A simple fragment class used to display the notes offered by the [NoteListViewModel] on the UI
  */
 const val NEW_NOTE_ID: Long = -1L
 @AndroidEntryPoint
@@ -33,6 +32,7 @@ class NoteListFragment : Fragment() {
     @Inject lateinit var dataSource: NoteDatabaseDao
 
     private lateinit var binding: FragmentNotesBinding
+    private lateinit var adapter: NoteListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,10 +53,10 @@ class NoteListFragment : Fragment() {
         binding.recyclerNotes.setHasFixedSize(true)
 
         setHasOptionsMenu(true)
-        (activity)?.title = "MyNotes"
+        (activity)?.title = "Notes"
 
-        val adapter = NoteListAdapter(NoteClickListener { noteId ->
-            Toast.makeText(context, "Note clicked with Id $noteId", Toast.LENGTH_SHORT).show()
+        adapter = NoteListAdapter(NoteClickListener { noteId ->
+            Log.d("NoteListFragment", "Note clicked with Id $noteId")
             viewModel.onNoteClicked(noteId)
         })
 
@@ -70,10 +70,10 @@ class NoteListFragment : Fragment() {
         })
 
         viewModel.notes.observe(viewLifecycleOwner, {
-           if (it.isNotEmpty()){
-               binding.emptyText.visibility = View.INVISIBLE
-               adapter.submitList(it)
-           }
+            if (it.isNotEmpty()) {
+                adapter.submit(it)
+            } else
+                binding.emptyListText.visibility = View.VISIBLE
         })
 
         binding.fab.setOnClickListener {
@@ -103,8 +103,17 @@ class NoteListFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.action_delete_all -> deleteAllNotes()
-
+            /*adapter.submitList(it)*/
         }
         return true
+    }
+
+    override fun onResume() {
+        viewModel.notes.observe(viewLifecycleOwner, {
+            if (it.isNotEmpty())
+                binding.emptyListText.visibility = View.GONE
+        })
+
+        super.onResume()
     }
 }

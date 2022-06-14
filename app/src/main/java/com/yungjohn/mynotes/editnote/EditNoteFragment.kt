@@ -17,18 +17,16 @@ import com.yungjohn.mynotes.database.Note
 import com.yungjohn.mynotes.database.NoteDatabase
 import com.yungjohn.mynotes.database.NoteDatabaseDao
 import com.yungjohn.mynotes.databinding.FragmentEditNoteBinding
+import com.yungjohn.mynotes.notelist.NoteListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
 
 /**
- * A simple [Fragment] subclass.
- * Use the [EditNoteFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * A simple fragment class used to edit and save notes
  */
 @AndroidEntryPoint
 class EditNoteFragment : Fragment() {
-
     @Inject lateinit var dataSource: NoteDatabaseDao
 
     private lateinit var viewModel: EditNoteViewModel
@@ -87,8 +85,10 @@ class EditNoteFragment : Fragment() {
             viewModel.isNewNote.observe(viewLifecycleOwner, { isNewNote ->
                 if (isNewNote){
                     saveNewNote()
+                    navigateBack()
                 }else{
                     updateNote()
+                    navigateBack()
                 }
             })
             // Hide the keyboard.

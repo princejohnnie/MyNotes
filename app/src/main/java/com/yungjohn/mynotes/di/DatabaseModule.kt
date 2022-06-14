@@ -1,6 +1,7 @@
 package com.yungjohn.mynotes.di
 
 import android.content.Context
+import com.yungjohn.mynotes.database.Note
 import com.yungjohn.mynotes.database.NoteDatabase
 import com.yungjohn.mynotes.database.NoteDatabaseDao
 import dagger.Module
@@ -24,4 +25,9 @@ object DatabaseModule {
     fun provideNoteDao(database: NoteDatabase): NoteDatabaseDao{
         return database.noteDatabaseDao
     }
+
+   /* @Provides
+    fun provideNoteId(note: Note): Long {
+        return note.noteId
+    }*/
 }

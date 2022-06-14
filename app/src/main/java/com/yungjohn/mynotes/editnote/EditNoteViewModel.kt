@@ -3,13 +3,15 @@ package com.yungjohn.mynotes.editnote
 import androidx.lifecycle.*
 import com.yungjohn.mynotes.database.Note
 import com.yungjohn.mynotes.database.NoteDatabaseDao
+import com.yungjohn.mynotes.notelist.NoteListFragment
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 /**
-Created by John on 06/07/2021
+ * ViewModel class for the [EditNoteFragment]
+ * Contains relevant methods and properties used to manipulate controls in the [EditNoteFragment]
  **/
-class EditNoteViewModel(val noteId : Long, val database: NoteDatabaseDao): ViewModel() {
+class EditNoteViewModel @Inject constructor(val noteId : Long, val database: NoteDatabaseDao): ViewModel() {
 
     private val _currentNote = MediatorLiveData<Note>()
 
@@ -25,7 +27,7 @@ class EditNoteViewModel(val noteId : Long, val database: NoteDatabaseDao): ViewM
     init {
         initializeNote()
         if(noteId != -1L){
-            _currentNote.addSource(database.getNote(noteId), _currentNote::setValue)
+            _currentNote.addSource(database.getCurrentNote(noteId), _currentNote::setValue)
             _isNewNote.value = false
         }else{
            _isNewNote.value = true
