@@ -55,6 +55,7 @@ class NoteListFragment : Fragment() {
         setHasOptionsMenu(true)
         (activity)?.title = "Notes"
 
+
         adapter = NoteListAdapter(NoteClickListener { noteId ->
             Log.d("NoteListFragment", "Note clicked with Id $noteId")
             viewModel.onNoteClicked(noteId)
