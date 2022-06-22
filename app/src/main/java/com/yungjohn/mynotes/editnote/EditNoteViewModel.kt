@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.yungjohn.mynotes.database.Note
 import com.yungjohn.mynotes.database.NoteDatabaseDao
 import com.yungjohn.mynotes.notelist.NoteListFragment
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
@@ -11,6 +12,7 @@ import javax.inject.Inject
  * ViewModel class for the [EditNoteFragment]
  * Contains relevant methods and properties used to manipulate controls in the [EditNoteFragment]
  **/
+
 class EditNoteViewModel @Inject constructor(val noteId : Long, val database: NoteDatabaseDao): ViewModel() {
 
     private val _currentNote = MediatorLiveData<Note>()
