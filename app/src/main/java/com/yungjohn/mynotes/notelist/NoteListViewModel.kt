@@ -36,14 +36,6 @@ class NoteListViewModel @Inject constructor(val database: NoteDatabaseDao) : Vie
         _navigateToEditNote.value = null
     }
 
-    /*private fun getAllNotes(){
-        viewModelScope.launch {
-            withContext(Dispatchers.IO){
-                _notes.postValue(database.getAllNotes())
-            }
-        }
-    }*/
-
     fun deleteAllNotes(){
         viewModelScope.launch {
             withContext(Dispatchers.IO){

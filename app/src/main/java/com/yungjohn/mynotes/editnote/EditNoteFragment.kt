@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.yungjohn.mynotes.R
