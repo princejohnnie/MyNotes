@@ -27,8 +27,4 @@ object DatabaseModule {
         return database.noteDatabaseDao
     }
 
-   /* @Provides
-    fun provideNoteId(note: Note): Long {
-        return note.noteId
-    }*/
 }

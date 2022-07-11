@@ -49,7 +49,7 @@ class NoteListFragment : Fragment() {
 
 
         adapter = NoteListAdapter(NoteClickListener { noteId ->
-            Log.d("NoteListFragment", "Note clicked with Id $noteId")
+//            Log.d("NoteListFragment", "Note clicked with Id $noteId")
             viewModel.onNoteClicked(noteId)
         })
 
