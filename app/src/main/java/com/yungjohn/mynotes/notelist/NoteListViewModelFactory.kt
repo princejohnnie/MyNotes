@@ -8,13 +8,13 @@ import com.yungjohn.mynotes.database.NoteDatabaseDao
 import com.yungjohn.mynotes.editnote.EditNoteViewModel
 import javax.inject.Inject
 
-class NoteListViewModelFactory @Inject constructor(private val dataSource: NoteDatabaseDao): ViewModelProvider.Factory {
+
+class NoteListViewModelFactory (private val dataSource: NoteDatabaseDao): ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("unchecked_cast")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(NoteListViewModel::class.java)) {
-            return NoteListViewModel(dataSource) as T
+    class Factory @Inject constructor(private val database: NoteDatabaseDao) : ViewModelProvider.NewInstanceFactory() {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return NoteListViewModel(database) as T
         }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

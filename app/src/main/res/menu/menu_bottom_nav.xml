@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home_fragment"
+        android:title="Home"
+        android:icon="@drawable/ic_home"
+        />
+
+    <item
+        android:id="@+id/categories_fragment"
+        android:title="Categories"
+        android:icon="@drawable/ic_categories"
+        />
+
+    <item
+        android:id="@+id/record_fragment"
+        android:title="Record"
+        android:icon="@drawable/ic_microphone"
+        />
+
+    <item
+        android:id="@+id/settings_fragment"
+        android:title="Settings"
+        android:icon="@drawable/ic_settings"
+        />
+
+</menu>

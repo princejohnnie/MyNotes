@@ -7,8 +7,7 @@
 
     <fragment
         android:id="@+id/notesFragment"
-        android:name="com.yungjohn.mynotes.notelist.NoteListFragment"
-        >
+        android:name="com.yungjohn.mynotes.notelist.NoteListFragment">
         <action
             android:id="@+id/action_notesFragment_to_editNoteFragment"
             app:destination="@id/editNoteFragment" />
