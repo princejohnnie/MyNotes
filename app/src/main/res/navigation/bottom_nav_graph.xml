@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_nav_graph"
+    app:startDestination="@id/notesFragment">
+
+    <fragment
+        android:id="@+id/notesFragment"
+        android:name="com.yungjohn.mynotes.notelist.NoteListFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/categories_fragment"
+        android:name="com.yungjohn.mynotes.CategoriesFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/record_fragment"
+        android:name="com.yungjohn.mynotes.RecordFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/settings_fragment"
+        android:name="com.yungjohn.mynotes.SettingsFragment">
+
+    </fragment>
+
+
+</navigation>

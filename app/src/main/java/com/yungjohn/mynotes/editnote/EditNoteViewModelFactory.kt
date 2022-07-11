@@ -8,6 +8,7 @@ import javax.inject.Inject
 /**
 Created by John on 09/07/2021
  **/
+/*
 class EditNoteViewModelFactory(private val noteId: Long, private val dataSource: NoteDatabaseDao): ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
@@ -18,4 +19,4 @@ class EditNoteViewModelFactory(private val noteId: Long, private val dataSource:
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 
-}
+}*/

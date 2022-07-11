@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.yungjohn.mynotes.R
@@ -30,7 +32,7 @@ import javax.inject.Inject
 class EditNoteFragment : Fragment() {
     @Inject lateinit var dataSource: NoteDatabaseDao
 
-    private lateinit var viewModel: EditNoteViewModel
+    private val viewModel: EditNoteViewModel by viewModels()
     private lateinit var binding: FragmentEditNoteBinding
     private lateinit var arguments: EditNoteFragmentArgs
 
@@ -49,8 +51,7 @@ class EditNoteFragment : Fragment() {
         //val application = requireNotNull(this.activity).application
        // val dataSource = NoteDatabase.getInstance(application).noteDatabaseDao
         arguments = EditNoteFragmentArgs.fromBundle(requireArguments())
-        val viewModelFactory = EditNoteViewModelFactory(arguments.noteId, dataSource)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(EditNoteViewModel::class.java)
+
 
         binding.editNoteViewModel = viewModel
         binding.lifecycleOwner = this
@@ -67,7 +68,6 @@ class EditNoteFragment : Fragment() {
             binding.editNoteText.isCursorVisible = true
         }
 
-        setHasOptionsMenu(true)
 
         return binding.root
     }
