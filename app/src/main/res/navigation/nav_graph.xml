@@ -2,19 +2,18 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/notesFragment">
+    android:id="@+id/nav_graph">
 
-    <fragment
-        android:id="@+id/notesFragment"
-        android:name="com.yungjohn.mynotes.notelist.NoteListFragment">
-        <action
-            android:id="@+id/action_notesFragment_to_editNoteFragment"
-            app:destination="@id/editNoteFragment" />
-    </fragment>
-    <fragment
+<!--    <fragment-->
+<!--        android:id="@+id/notesFragment"-->
+<!--        android:name="com.yungjohn.mynotes.NoteListFragment">-->
+<!--        <action-->
+<!--            android:id="@+id/action_notesFragment_to_editNoteFragment"-->
+<!--            app:destination="@id/editNoteFragment" />-->
+<!--    </fragment>-->
+    <!--<fragment
         android:id="@+id/editNoteFragment"
-        android:name="com.yungjohn.mynotes.editnote.EditNoteFragment"
+        android:name="com.yungjohn.mynotes.ui.EditNoteFragment"
         android:label="Notes">
         <argument
             android:name="noteId"
@@ -24,5 +23,5 @@
             app:destination="@id/notesFragment"
             app:popUpTo="@id/notesFragment"
             app:popUpToInclusive="true" />
-    </fragment>
+    </fragment>-->
 </navigation>

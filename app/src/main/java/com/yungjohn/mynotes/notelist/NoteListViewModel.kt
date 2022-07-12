@@ -1,6 +1,7 @@
 package com.yungjohn.mynotes.notelist
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.yungjohn.mynotes.database.Note
 import com.yungjohn.mynotes.database.NoteDatabaseDao
@@ -16,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class NoteListViewModel @Inject constructor(val database: NoteDatabaseDao) : ViewModel() {
 
-    private var _notes = database.getAllNotes()
+    private val _notes = database.getAllNotes()
 
     val notes: LiveData<List<Note>>
         get() = _notes
@@ -27,7 +28,8 @@ class NoteListViewModel @Inject constructor(val database: NoteDatabaseDao) : Vie
         get() = _navigateToEditNote
 
     init {
-       // getAllNotes()
+//        Log.d("NoteListActivity", "Database => $database")
+//        getAllNotes()
     }
 
     fun onNoteClicked(id: Long){
@@ -36,6 +38,19 @@ class NoteListViewModel @Inject constructor(val database: NoteDatabaseDao) : Vie
 
     fun onNavigatedToEditNote(){
         _navigateToEditNote.value = null
+    }
+
+    private fun getAllNotes() {
+        viewModelScope.launch {
+//            _notes.value = getNotesFromDb()
+        }
+    }
+
+    private suspend fun getNotesFromDb(): List<Note>? {
+        return withContext(Dispatchers.Default) {
+            val notes = database.getAllNotes()
+            notes.value
+        }
     }
 
     fun deleteAllNotes(){

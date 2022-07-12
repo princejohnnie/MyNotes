@@ -1,4 +1,4 @@
-package com.yungjohn.mynotes.notelist
+package com.yungjohn.mynotes.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -6,6 +6,8 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +16,8 @@ import com.yungjohn.mynotes.NoteListAdapter
 import com.yungjohn.mynotes.R
 import com.yungjohn.mynotes.database.NoteDatabaseDao
 import com.yungjohn.mynotes.databinding.FragmentNotesBinding
+
+import com.yungjohn.mynotes.notelist.NoteListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -29,10 +33,7 @@ class NoteListFragment : Fragment() {
     private lateinit var binding: FragmentNotesBinding
     private lateinit var adapter: NoteListAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    val notelistNavController: NavController? by lazy { view?.findNavController() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,11 +42,15 @@ class NoteListFragment : Fragment() {
         // Inflate the layout for this fragment using DataBinding
         binding = FragmentNotesBinding.inflate(inflater, container, false)
 
-        binding.lifecycleOwner = this
+        return binding.root
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.lifecycleOwner = viewLifecycleOwner
 
         binding.recyclerNotes.layoutManager = LinearLayoutManager(activity)
         binding.recyclerNotes.setHasFixedSize(true)
-
 
 
         adapter = NoteListAdapter(NoteClickListener { noteId ->
@@ -55,12 +60,6 @@ class NoteListFragment : Fragment() {
 
         binding.recyclerNotes.adapter = adapter
 
-        viewModel.navigateToEditNote.observe(viewLifecycleOwner, { noteId ->
-            noteId?.let {
-                this.findNavController().navigate(NoteListFragmentDirections.actionNotesFragmentToEditNoteFragment(noteId))
-                viewModel.onNavigatedToEditNote()
-            }
-        })
 
         viewModel.notes.observe(viewLifecycleOwner, {
             if (it.isNotEmpty()) {
@@ -69,11 +68,18 @@ class NoteListFragment : Fragment() {
                 binding.emptyListText.visibility = View.VISIBLE
         })
 
+        viewModel.navigateToEditNote.observe(viewLifecycleOwner, { noteId ->
+            noteId?.let {
+                this.findNavController().navigate(NoteListFragmentDirections.actionNotesFragmentToEditNoteFragment())
+                viewModel.onNavigatedToEditNote()
+            }
+        })
+
         binding.fab.setOnClickListener {
-            it.findNavController().navigate(NoteListFragmentDirections.actionNotesFragmentToEditNoteFragment(NEW_NOTE_ID))
+            val directions = NoteListFragmentDirections.actionNotesFragmentToSettingsFragment()
+            it.findNavController().navigate(directions)
             viewModel.onNavigatedToEditNote()
         }
-        return binding.root
     }
 
     private fun deleteAllNotes() {
