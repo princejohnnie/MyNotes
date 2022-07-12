@@ -2,31 +2,44 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottom_nav_graph"
-    app:startDestination="@id/notesFragment">
+    app:startDestination="@id/notes_fragment">
 
     <fragment
-        android:id="@+id/notesFragment"
-        android:name="com.yungjohn.mynotes.notelist.NoteListFragment">
+        android:id="@+id/notes_fragment"
+        android:name="com.yungjohn.mynotes.ui.NoteListFragment">
+
+        <action
+            android:id="@+id/action_notesFragment_to_editNoteFragment"
+            app:destination="@id/edit_note_fragment"/>
+
+        <action
+            android:id="@+id/action_notesFragment_to_settingsFragment"
+            app:destination="@id/settings_fragment"/>
 
     </fragment>
 
     <fragment
         android:id="@+id/categories_fragment"
-        android:name="com.yungjohn.mynotes.CategoriesFragment">
+        android:name="com.yungjohn.mynotes.ui.CategoriesFragment">
 
     </fragment>
 
     <fragment
         android:id="@+id/record_fragment"
-        android:name="com.yungjohn.mynotes.RecordFragment">
+        android:name="com.yungjohn.mynotes.ui.RecordFragment">
 
     </fragment>
 
     <fragment
         android:id="@+id/settings_fragment"
-        android:name="com.yungjohn.mynotes.SettingsFragment">
+        android:name="com.yungjohn.mynotes.ui.SettingsFragment">
 
     </fragment>
 
+    <fragment
+        android:id="@+id/edit_note_fragment"
+        android:name="com.yungjohn.mynotes.ui.EditNoteFragment">
+
+    </fragment>
 
 </navigation>

@@ -1,28 +1,22 @@
-package com.yungjohn.mynotes.editnote
+package com.yungjohn.mynotes.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.yungjohn.mynotes.R
 import com.yungjohn.mynotes.database.Note
-import com.yungjohn.mynotes.database.NoteDatabase
 import com.yungjohn.mynotes.database.NoteDatabaseDao
 import com.yungjohn.mynotes.databinding.FragmentEditNoteBinding
-import com.yungjohn.mynotes.notelist.NoteListViewModel
+import com.yungjohn.mynotes.editnote.EditNoteViewModel
+import com.yungjohn.mynotes.editnote.EditNoteViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 import javax.inject.Inject
 
 /**
@@ -34,7 +28,7 @@ class EditNoteFragment : Fragment() {
 
     private val viewModel: EditNoteViewModel by viewModels()
     private lateinit var binding: FragmentEditNoteBinding
-    private lateinit var arguments: EditNoteFragmentArgs
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,11 +40,11 @@ class EditNoteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit_note, container, false)
+        binding = FragmentEditNoteBinding.inflate(inflater, container, false)
 
         //val application = requireNotNull(this.activity).application
        // val dataSource = NoteDatabase.getInstance(application).noteDatabaseDao
-        arguments = EditNoteFragmentArgs.fromBundle(requireArguments())
+
 
 
         binding.editNoteViewModel = viewModel
@@ -110,7 +104,7 @@ class EditNoteFragment : Fragment() {
     }
 
     private fun navigateBack(){
-        this.findNavController().navigate(EditNoteFragmentDirections.actionEditNoteFragmentToNotesFragment())
+
     }
 
     private fun deleteNote(note: Note) {
@@ -127,9 +121,9 @@ class EditNoteFragment : Fragment() {
     private fun updateNote() {
         val noteTitle = binding.editNoteTitle.text.toString()
         val noteText = binding.editNoteText.text.toString()
-        val note = Note(noteTitle, noteText, arguments.noteId)
+//        val note = Note(noteTitle, noteText, arguments.noteId)
 
-        viewModel.updateNote(note)
+//        viewModel.updateNote(note)
         Toast.makeText(activity, "Note Updated", Toast.LENGTH_SHORT).show()
     }
 

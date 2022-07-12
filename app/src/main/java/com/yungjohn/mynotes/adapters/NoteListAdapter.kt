@@ -39,7 +39,7 @@ class NoteListAdapter(private val clickListener: NoteClickListener): ListAdapter
 
 }
 
-class NoteListDiffCallback : DiffUtil.ItemCallback<Note>(){
+class NoteListDiffCallback : DiffUtil.ItemCallback<Note>() {
     override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
         return oldItem.noteId == newItem.noteId
     }
@@ -49,6 +49,6 @@ class NoteListDiffCallback : DiffUtil.ItemCallback<Note>(){
     }
 }
 
-class NoteClickListener(val clickListener: (noteId: Long) -> Unit){
+class NoteClickListener(val clickListener: (noteId: Long) -> Unit) {
     fun onClick(note: Note) = clickListener(note.noteId)
 }
