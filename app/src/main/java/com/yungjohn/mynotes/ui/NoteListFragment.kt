@@ -75,11 +75,11 @@ class NoteListFragment : Fragment() {
             }
         })
 
-        binding.fab.setOnClickListener {
+        /*binding.fab.setOnClickListener {
             val directions = NoteListFragmentDirections.actionNotesFragmentToSettingsFragment()
             it.findNavController().navigate(directions)
             viewModel.onNavigatedToEditNote()
-        }
+        }*/
     }
 
     private fun deleteAllNotes() {

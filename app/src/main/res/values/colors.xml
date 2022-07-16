@@ -16,4 +16,9 @@
 
 
     <color name="app_blue">#407BFF</color>
+    <color name="category_personal">#DCEAFF</color>
+    <color name="category_work">#FFE6C8</color>
+    <color name="category_recordings">#FFF6C8</color>
+    <color name="category_private">#CBFFF2</color>
+    <color name="category_family">#E0C8FF</color>
 </resources>

@@ -22,6 +22,10 @@
         android:id="@+id/categories_fragment"
         android:name="com.yungjohn.mynotes.ui.CategoriesFragment">
 
+        <action
+            android:id="@+id/action_categoriesFragment_to_noteslistFragment"
+            app:destination="@id/notes_list_fragment"/>
+
     </fragment>
 
     <fragment
@@ -39,6 +43,12 @@
     <fragment
         android:id="@+id/edit_note_fragment"
         android:name="com.yungjohn.mynotes.ui.EditNoteFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/notes_list_fragment"
+        android:name="com.yungjohn.mynotes.ui.NotesListFragment">
 
     </fragment>
 
