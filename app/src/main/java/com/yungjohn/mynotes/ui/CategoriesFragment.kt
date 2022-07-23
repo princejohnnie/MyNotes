@@ -9,11 +9,6 @@ import androidx.navigation.fragment.findNavController
 import com.yungjohn.mynotes.databinding.FragmentCategoriesBinding
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CategoriesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CategoriesFragment : Fragment() {
 
     private lateinit var binding: FragmentCategoriesBinding
