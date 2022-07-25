@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Settings Page -->
+    <string name="title_general">General</string>
+    <string name="title_communicate">Communicate</string>
+    <string name="title_app">App</string>
+
+    <string name="title_sync_notes">Sync Notes</string>
+    <string name="title_backup_time">Set Backup time</string>
+    <string name="title_share_app">Share App</string>
+    <string name="title_rate_app">Rate App</string>
+    <string name="title_app_info">App info</string>
+
+    <string name="summary_sync_notes">Backup your notes automatically to the cloud</string>
+    <string name="summary_share_app">Share the app to your friends</string>
+    <string name="summary_rate_app">Rate this app on Google Play Store</string>
+    <string name="summary_about_app">About this app</string>
+
+    <string name="key_sync">key_sync</string>
+    <string name="key_status">key_status</string>
+    <string name="key_privacy_policy">key_privacy_policy</string>
+    <string name="key_auto_reply">key_auto_reply</string>
+    <string name="key_auto_reply_time">key_auto_reply_time</string>
+    <string name="key_auto_reply_msg">key_auto_reply_msg</string>
+    <string name="key_account_settings">key_account_settings</string>
+    <string name="key_auto_download">key_auto_download</string>
+    <string name="key_new_msg_notif">key_new_msg_notif</string>
+    <string name="key_version">key_version</string>
+
+
+    <string-array name="entries_sync_time">
+        <item>24 hours</item>    <!-- index 0 -->
+        <item>1 week</item>    <!-- index 1 -->
+        <item>1 month</item>     <!-- index 2 -->
+    </string-array>
+
+    <string-array name="values_sync_time">
+        <item>86400</item>    <!-- index 0 -->
+        <item>604800</item>    <!-- index 1 -->
+        <item>18144000</item>    <!-- index 2 -->
+    </string-array>
+
+
+    <!-- Account Settings Page -->
+    <string name="title_privacy">Privacy</string>
+    <string name="title_security">Security</string>
+    <string name="title_log_out">Log out</string>
+    <string name="title_delete_account">Delete my account</string>
+    <string name="title_public_info">My public info</string>
+
+    <string name="key_public_info">key_public_info</string>
+    <string name="key_log_out">key_log_out</string>
+    <string name="key_delete_account">key_delete_account</string>
+
+    <string name="summary_delete_account">This cannot be undone</string>
+
+    <string-array name="entries_public_info">
+        <item>Status</item>             <!-- index 0 -->
+        <item>Birth date</item>         <!-- index 1 -->
+        <item>Last seen</item>          <!-- index 2 -->
+        <item>Read receipts</item>      <!-- index 3 -->
+        <item>Profile picture</item>    <!-- index 4 -->
+    </string-array>
+
+    <string-array name="values_public_info">
+        <item>0</item>    <!-- index 0 -->
+        <item>1</item>    <!-- index 1 -->
+        <item>2</item>    <!-- index 2 -->
+        <item>3</item>    <!-- index 3 -->
+        <item>4</item>    <!-- index 4 -->
+    </string-array>
+
+</resources>

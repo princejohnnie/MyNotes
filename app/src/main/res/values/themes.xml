@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MyNotes" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.MyNotes" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimaryVariant">@color/app_blue</item>
         <item name="colorPrimary">@color/app_blue</item>

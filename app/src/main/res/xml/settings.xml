@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:title="@string/title_general"
+        app:iconSpaceReserved="false"
+        app:allowDividerBelow="true">
+
+        <SwitchPreferenceCompat
+            app:title="@string/title_sync_notes"
+            app:key="@string/key_sync"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:summary="@string/summary_sync_notes"/>
+
+        <ListPreference
+            android:dependency="@string/key_sync"
+            app:title="@string/title_backup_time"
+            app:key="key_backup_time"
+            app:dialogTitle="Set Time"
+            app:iconSpaceReserved="false"
+            app:useSimpleSummaryProvider="true"
+            app:entries="@array/entries_sync_time"
+            app:entryValues="@array/values_sync_time"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/title_communicate"
+        app:iconSpaceReserved="false"
+        app:allowDividerBelow="true">
+
+        <Preference
+            app:title="@string/title_share_app"
+            app:summary="@string/summary_share_app"
+            app:iconSpaceReserved="false"/>
+
+        <Preference
+            app:title="@string/title_rate_app"
+            app:summary="@string/summary_rate_app"
+            app:iconSpaceReserved="false"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/title_app"
+        app:iconSpaceReserved="false"
+        app:allowDividerBelow="true">
+
+        <Preference
+            app:title="@string/title_app_info"
+            app:iconSpaceReserved="false"
+            app:summary="@string/summary_about_app"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
