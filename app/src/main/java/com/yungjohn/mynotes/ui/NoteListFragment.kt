@@ -60,6 +60,10 @@ class NoteListFragment : Fragment() {
 
         binding.recyclerNotes.adapter = adapter
 
+        binding.profileImage.setOnClickListener {
+            this.findNavController().navigate(NoteListFragmentDirections.actionNotesFragmentToProfileFragment())
+        }
+
 
         viewModel.notes.observe(viewLifecycleOwner, {
             if (it.isNotEmpty()) {

@@ -14,8 +14,8 @@
             app:destination="@id/edit_note_fragment"/>
 
         <action
-            android:id="@+id/action_notesFragment_to_settingsFragment"
-            app:destination="@id/settings_fragment"/>
+            android:id="@+id/action_notesFragment_to_profileFragment"
+            app:destination="@id/profile_fragment"/>
 
     </fragment>
 
@@ -62,6 +62,12 @@
     <fragment
         android:id="@+id/notes_list_fragment"
         android:name="com.yungjohn.mynotes.ui.NotesListFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/profile_fragment"
+        android:name="com.yungjohn.mynotes.ui.ProfileFragment">
 
     </fragment>
 
