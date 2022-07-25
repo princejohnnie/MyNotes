@@ -5,6 +5,7 @@
     app:startDestination="@id/notes_fragment">
 
     <fragment
+        android:label="Notes"
         android:id="@+id/notes_fragment"
         android:name="com.yungjohn.mynotes.ui.NoteListFragment">
 
@@ -19,6 +20,7 @@
     </fragment>
 
     <fragment
+        android:label="Categories"
         android:id="@+id/categories_fragment"
         android:name="com.yungjohn.mynotes.ui.CategoriesFragment">
 
@@ -29,6 +31,7 @@
     </fragment>
 
     <fragment
+        android:label="Record"
         android:id="@+id/record_fragment"
         android:name="com.yungjohn.mynotes.ui.RecordFragment">
 
@@ -44,6 +47,7 @@
     </fragment>
 
     <fragment
+        android:label="Settings"
         android:id="@+id/settings_fragment"
         android:name="com.yungjohn.mynotes.ui.SettingsFragment">
 

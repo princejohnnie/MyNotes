@@ -83,4 +83,7 @@ dependencies {
     // Hilt dependencies
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    // Preference library - Kotlin
+    implementation 'androidx.preference:preference-ktx:1.1.1'
 }

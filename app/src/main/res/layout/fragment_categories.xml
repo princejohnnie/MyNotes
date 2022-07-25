@@ -10,17 +10,6 @@
         tools:context=".ui.CategoriesFragment"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/categories_text_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Categories"
-            android:textSize="32sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/category_personal"
@@ -31,7 +20,7 @@
             android:background="@drawable/background_category_personal"
             app:layout_constraintEnd_toStartOf="@id/category_work"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/categories_text_view">
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:layout_width="wrap_content"
